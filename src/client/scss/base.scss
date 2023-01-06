@@ -1,0 +1,85 @@
+@use 'mixins';
+
+@mixin flex {
+  align-items: center;
+  display: flex;
+  gap: 0;
+}
+
+@mixin grid-area($selector, $name) {
+  &#{$selector} {
+    grid-area: #{$name};
+  }
+}
+
+body,
+html {
+  @include mixins.hide-scrollbar;
+
+  background-color: var(--white);
+  color: var(--black);
+  box-sizing: border-box;
+  margin: 0;
+  overflow: hidden scroll;
+}
+
+body {
+  @include mixins.transition(filter, opacity);
+
+  border: 1px solid var(--black);
+  font-family: var(--font-family--body);
+  font-size: var(--font-size);
+  height: 100vh;
+  line-height: var(--line-height);
+  padding: 0;
+  position: relative;
+  text-align: start;
+  width: 100vw;
+}
+
+header {
+  @include flex;
+
+  background-color: var(--white);
+  border-bottom: 1px solid var(--black);
+  box-sizing: border-box;
+  gap: var(--gap);
+  height: var(--header);
+  justify-content: center;
+  padding: 0 var(--spacing--md);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1500;
+
+  * {
+    border: 0;
+    outline: 0;
+  }
+
+  input-text {
+    width: 100%
+  }
+}
+
+section {
+  @include flex;
+  @include mixins.hide-scrollbar;
+
+  flex-flow: column;
+  overflow: hidden scroll;
+  width: 50%;
+}
+
+.caption {
+  font-size: var(--font-size--md);
+  margin-block: calc(var(--spacing--md) * 2);
+  // opacity: .3;
+  text-align: center;
+}
+
+.--pending {
+  filter: grayscale(1);
+  opacity: .2;
+  pointer-events: none;
+}

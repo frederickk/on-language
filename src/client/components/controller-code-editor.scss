@@ -1,0 +1,108 @@
+@use '../scss/mixins';
+@import '../scss/_defs';
+@import '../scss//tooltip.scss';
+@import '../../../node_modules/prismjs/themes/prism.css';
+@import '../../../node_modules/prismjs/themes/prism-okaidia.css';
+
+@mixin typography {
+  font-size: var(--font-size--md);
+  font-family: var(--font-family--code);
+  line-height: var(--line-height);
+  tab-size: 2;
+  text-shadow: none;
+
+  span {
+    background: transparent;
+  }
+}
+
+:host {
+  @include typography;
+
+  display: block;
+  height: 100%;
+  position: relative;
+  width: 100%;
+
+  // TODO: Determine why this isn't inherited through imported '_defs'.
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .tooltip--bottom {
+    font-family: var(--font-family--body);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--gap);
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .code {
+    @include mixins.hide-scrollbar;
+    @include mixins.transition(opacity);
+
+    // display: block;
+    // height: 100%;
+    opacity: 0;
+    outline: 0;
+    // overflow: scroll;
+    // position: relative;
+    white-space: pre;
+    // width: 100%;
+  }
+
+  .editor,
+  .highlighter {
+    @include mixins.hide-scrollbar;
+    @include typography;
+
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    overflow: auto;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    white-space: nowrap; // Allows textarea to scroll horizontally
+    width: 100%;
+
+    * {
+      @include typography;
+    }
+  }
+
+  .editor {
+    background: transparent;
+    caret-color: white;
+    color: transparent;
+    outline: 0; // not a11y friendly :(
+    resize: none;
+    z-index: 1;
+  }
+
+  .highlighter {
+    opacity: 0;
+    z-index: 0;
+  }
+}

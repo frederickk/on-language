@@ -1,0 +1,54 @@
+{% extends 'templates/base.njk' %}
+
+{% set title = "On Language" %}
+
+{# Create details element. #}
+{% macro details(name='', summary='', open=true) %}
+  <details class="content-container" data-area="{{ name }}" {% if open==true %}open{% endif %}>
+    <summary>{{ summary }}</summary>
+    <div id="{{ name }}">
+      {%- if caller %}{{- caller() | trim -}}{% endif -%}
+    </div>
+  </details>
+{% endmacro %}
+
+{# Create details element, with code-editor element. #}
+{% macro details_code(name='', summary='', clear=false, lang="js", open=true, run=false, stop=false) %}
+  <details class="content-container content--dark" data-area="{{ name }}" {% if open==true %}open{% endif %}>
+    <summary>{{ summary }}</summary>
+    <code-editor id="{{ name }}" lang="{{ lang }}" data-json="" {% if clear==true %}clear{% endif %} {% if run==true %}run{% endif %} {% if stop==true %}stop{% endif %}>
+      {%- if caller %}{{- caller() | trim -}}{% endif -%}
+    </code-editor>
+  </details>
+{% endmacro %}
+
+{% block body %}
+  <header>
+    <!-- CHATGPT PROMPT -->
+    <input-text id="prompt" value="Create a writing system that is only comprised of valid hexadecimal characters. All words of this language are 3 or 6 characters long and always start with '#'.">
+    </input-text>
+    <button-debounce id="ask">
+      <span class="material-symbols-outlined">send</span>
+    </button-debounce>
+
+    <!-- ABOUT -->
+    <button-debounce class="header-debug tooltip--bottom" data-tooltip="WTF" onclick="window.history.pushState(null,null,'/about');location.href='/about';">
+      <span class="material-symbols-outlined">info</span>
+    </button-debounce>
+  </header>
+
+  <div class="content">
+    <section class="content-column">
+      {{ details_code(name='schema', summary='Data structure', clear=false, lang="xml", run=false) }}
+      {{ details(name='response', summary='Response') }}
+    </section>
+    <section class="content-column content-column__output content--dark">
+      {% call details_code(name='data', summary='Data', clear=true) %}{% endcall %}
+      {% call details_code(name='parser', summary='Parser / Output', clear=true) %}console.log(data);{% endcall %}
+      {% call details_code(name='engine', summary='Engine', clear=true, run=true, stop=true) %}console.log(data);
+console.log(output);{% endcall %}
+    </section>
+  </div>
+
+  <div id="canvas" class="content content-canvas"></div>
+{% endblock %}

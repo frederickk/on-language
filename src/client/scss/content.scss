@@ -1,0 +1,136 @@
+@use 'mixins';
+@import '_defs';
+
+details {
+  cursor: pointer;
+
+  &[open] {
+    cursor: auto;
+    height: 40vh; //100%;
+  }
+
+  summary {
+    @include mixins.passive-type;
+
+    font-family: var(--font-family--body) !important;
+    font-size: var(--font-size--sm) !important;
+    font-weight: bold;
+    height: calc(var(--line-height));
+    position: absolute;
+    text-transform: capitalize;
+    top: 0;
+  }
+}
+
+.content {
+  box-sizing: border-box;
+  display: flex;
+  height: calc(100% - var(--header));
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  &--code {
+    @include mixins.hide-scrollbar;
+
+    display: block;
+    height: 100%;
+    outline: 0;
+    overflow: scroll;
+    position: relative;
+    white-space: pre-line;
+    width: 100%;
+
+    &:not(summary) {
+      font-family: var(--font-family--code);
+      white-space: pre-wrap;
+    }
+  }
+
+  &--dark {
+    background-color: $black;
+    border-color: $white !important;
+    color: $white;
+  }
+
+  &-actions {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--gap);
+    position: absolute;
+    right: var(--spacing--md);
+    top: var(--spacing--lg);
+    z-index: 1000;
+  }
+
+  &-canvas {
+    align-items: center;
+    background-color: var(--white);
+    border-top: 1px solid var(--black);
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 1500;
+  }
+
+  &-column {
+    display: flex;
+    flex-flow: column;
+    overflow: visible scroll;
+    width: 50%;
+
+    &:first-child {
+      border: 0;
+    }
+
+    &:not(:first-child) {
+      border-left: 1px solid var(--black);
+    }
+
+    &__output {
+      overflow: hidden;
+      // padding-block-end: var(--spacing--md);
+
+      // .content-container:not(details) {
+      //   // height: calc(calc(100vh / 3) - calc(65px / 3));
+      // }
+    }
+  }
+
+  &-container {
+    @include mixins.transition(background-color);
+
+    border-top: 1px solid var(--black);
+    box-sizing: border-box;
+    font-size: var(--font-size--md);
+    flex-grow: 1;
+    height: auto;
+    min-height: 5vh;
+    overflow: hidden scroll;
+    position: relative;
+    padding: var(--spacing--lg) var(--spacing--md) 0;
+    width: 100%;
+
+    &:not(details):before {
+      @include mixins.passive-type;
+
+      content: attr(data-area);
+      display: block;
+      font-family: var(--font-family--body);
+      font-size: var(--font-size--sm);
+      font-weight: 700;
+      height: calc(var(--line-height));
+      position: absolute;
+      text-transform: capitalize;
+      top: 0;
+      width: 100%;
+    }
+
+    * {
+      white-space: pre;
+    }
+  }
+}
