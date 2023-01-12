@@ -84,9 +84,7 @@ export class CodeEditor extends LitElement {
       <slot></slot>
     </textarea>
 
-    <pre class="highlighter" aria-hidden="true">
-      <code class="code"></code>
-    </pre>
+    <pre class="highlighter" aria-hidden="true"><code class="code"></code></pre>
     `;
   }
 
@@ -109,6 +107,9 @@ export class CodeEditor extends LitElement {
 
   /** Handles 'click' of clear button; clears <code> element contents. */
   protected handlerClickClear_() {
+    this.buttonRun_.classList.remove('actions--active');
+    this.buttonRun_.classList.remove('actions--active');
+
     const event = new CustomEvent('code-clear', {
       bubbles: true,
       composed: true,
@@ -123,6 +124,9 @@ export class CodeEditor extends LitElement {
 
   /** Handles 'click' of run button and fires 'code-run' event. */
   protected handlerClickRun_() {
+    this.buttonRun_.classList.add('actions--active');
+    this.buttonRun_.classList.remove('actions--active');
+
     const event = new CustomEvent('code-run', {
       bubbles: true,
       composed: true,
@@ -132,6 +136,9 @@ export class CodeEditor extends LitElement {
 
   /** Handles 'click' of run button and fires 'code-run' event. */
   protected handlerClickStop_() {
+    this.buttonRun_.classList.remove('actions--active');
+    this.buttonRun_.classList.add('actions--active');
+
     const event = new CustomEvent('code-stop', {
       bubbles: true,
       composed: true,

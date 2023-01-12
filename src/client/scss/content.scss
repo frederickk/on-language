@@ -114,6 +114,10 @@ details {
     padding: var(--spacing--lg) var(--spacing--md) 0;
     width: 100%;
 
+    &:first-child {
+      height: 20vh;
+    }
+
     &:not(details):before {
       @include mixins.passive-type;
 

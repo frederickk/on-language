@@ -3,10 +3,32 @@
 {% set title = "On Language" %}
 
 {% block body %}
+  <header style="justify-content:flex-end;">
+    <!-- CHATGPT PROMPT -->
+    <button-debounce onclick="window.history.pushState(null,null,'/');location.href='/';">
+      <span class="material-symbols-outlined">window</span>
+    </button-debounce>
+
+    <!-- ABOUT -->
+    <button-debounce class="header-debug tooltip--bottom" data-tooltip="WTF" onclick="window.history.pushState(null,null,'/about');location.href='/about';">
+      <span class="material-symbols-outlined">info</span>
+    </button-debounce>
+  </header>
+
   <div id="canvas" class="content content-canvas">
     <p class="on-language__p" style="max-width:56ch;">
-      <span class="on-language__i">On Language</span> is an experiment in coercing <a href="https://chat.openai.com/" class="on-language__a" target="_blank">ChatGPT</a> to create languages and structured data responses. The languages created can then be used as a direct creative input. <a href="https://p5js.org/get-started/" class="on-language__a" target="_blank">P5.js</a> and <a href="https://tonejs.github.io/" class="on-language__a" target="_blank">Tone.js</a> are directly embedded into this site, but any creative platform could use the returned data.
+      <span class="on-language__i">On Language</span> is an experiment in coercing <a href="https://chat.openai.com/" class="on-language__a" target="_blank">ChatGPT</a> to create languages and structured data responses. The languages created can then be used as a direct creative input. <a href="https://p5js.org/get-started/" class="on-language__a" target="_blank">P5.js</a>, <a href="https://tonejs.github.io/" class="on-language__a" target="_blank">Tone.js</a>, and <a href="https://webmidijs.org/" target="_blank">WebMidi.js</a> are directly embedded into this site.
     </p>
+    <p class="chat-message__p">
+      These are the training rules ChatGPT is asked to follow for every question:
+    </p>
+    <ul class="chat-message__ul" style="max-width:56ch;">
+    {% for p in plugins %}
+      {% for rule in p.rules %}
+        <li class="chat-message__li">{{ rule }}</li>
+      {% endfor %}
+    {% endfor %}
+    </ul>
     <p class="caption">
       <a href="http://kenfrederick.de/" target="_blank" class="on-language__a">Ken Frederick</a> 2022/23
     </p>

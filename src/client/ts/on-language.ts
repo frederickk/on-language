@@ -153,6 +153,7 @@ export class OnLanguage {
         this.engine_.canvas,
         this.engine_.render.bind(this.engine_),
         this.engine_.play.bind(this.engine_),
+        this.engine_.midi.bind(this.engine_),
       );
     } catch (err) {
       log.error(err);

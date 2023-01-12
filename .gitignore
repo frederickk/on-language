@@ -19,10 +19,11 @@ static/
 # Misc. #
 ###################
 .vscode/
-# *.pxd
-# *.sketch
+*.pxd
+*.sketch
 # *.mp4
 # *.mov
+on-language-beatbox-midi Project
 
 # Configs #
 ###################

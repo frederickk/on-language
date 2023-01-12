@@ -53,20 +53,19 @@
     right: 0;
     top: 0;
     z-index: 1000;
+
+    &--active {
+      filter: invert(1);
+    }
   }
 
   .code {
     @include mixins.hide-scrollbar;
     @include mixins.transition(opacity);
 
-    // display: block;
-    // height: 100%;
     opacity: 0;
     outline: 0;
-    // overflow: scroll;
-    // position: relative;
-    white-space: pre;
-    // width: 100%;
+    white-space: pre-wrap;
   }
 
   .editor,
@@ -80,11 +79,11 @@
     height: 100%;
     left: 0;
     margin: 0;
-    overflow: auto;
+    overflow: hidden auto;
     padding: 0;
     position: absolute;
     top: 0;
-    white-space: nowrap; // Allows textarea to scroll horizontally
+    white-space: pre-wrap; // Allows textarea to scroll horizontally
     width: 100%;
 
     * {
