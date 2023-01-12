@@ -9,8 +9,8 @@ data = {
   }
 };
 
-// Parser
-return data.root.example.split(/#/gmi);
+// Parse data.
+const output = data.root.example.split(/#/gmi);
 
 // p5.js code
 const sketch = p => {
@@ -43,7 +43,7 @@ const sketch = p => {
 
     let x = unit;
     let y = unit;
-    output.result.forEach((d) => {
+    output.forEach((d) => {
       if (d) {
         const col = hexToColor(p, d);
         const bright = p.brightness(col);

@@ -3,7 +3,9 @@
  */
 
 import p5 from 'p5';
+import {WebMidi} from 'webmidi';
 import * as Tone from 'tone';
+import * as log from '../../globals/log';
 
 export class Engine {
   /** Render target for engine(s). */
@@ -17,9 +19,23 @@ export class Engine {
     this.initListeners_();
   }
 
-  /** Plays roll (i.e. code) through Tone.js instance. */
-  public play(roll: any) {
-    roll(Tone);
+  /** Plays sketch (i.e. code) through Midi devices through WebMidi.js. */
+  public midi(sketch: any) {
+    const onEnabled = async () => {
+      sketch(WebMidi.inputs, WebMidi.outputs);
+    };
+
+    WebMidi
+      .enable({
+        sysex: true,
+      })
+      .then(onEnabled)
+      .catch(err => log.warn(err));
+  }
+
+  /** Plays sketch (i.e. code) through Tone.js instance. */
+  public play(sketch: any) {
+    sketch(Tone);
     // Tone.start();
   }
 

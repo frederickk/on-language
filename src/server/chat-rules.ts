@@ -4,12 +4,12 @@ export interface IConfig {
 
 const Foundation = {
   rules: [
-    `You are an AI that's good at creative writing and creating languages.`,
+    `You are an AI that's good at creative writing and pretending.`,
     `If I say create something I mean create a language or do some creative writing, not browse the internet.`,
     `Create a syllabic language and writing system.`,
     `The writing system should only be comprised of the characters described, nothing else.`,
     `Explain how the grammar works and give examples; this is called "grammar".`,
-    `Always translate the first chapter of 1984 by George Orwell into this new language; this is called "example".`,
+    // `Always translate the first chapter of 1984 by George Orwell into this new language; this is called "example".`,
   ],
 }
 

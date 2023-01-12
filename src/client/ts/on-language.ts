@@ -36,7 +36,6 @@ export class OnLanguage {
     this.elemsCode_ = {
       data: document.querySelector('#data')!,
       engine: document.querySelector('#engine')!,
-      parser: document.querySelector('#parser')!,
       schema: document.querySelector('#schema')!,
     };
 
@@ -136,7 +135,7 @@ export class OnLanguage {
     }
   }
 
-  /** Handles execution of parser into engine into engine canvas. */
+  /** Handles execution engine code. */
   private async handlerEngineRun_() {
     const text = this.elemsCode_.data.value!;
     let data = {};
@@ -144,19 +143,13 @@ export class OnLanguage {
       data = JSON.parse(text || '');
     } catch (err) {}
 
-    const parserJS = `(data) => {
-      ${this.elemsCode_.parser.value}
-    }`;
-    const engineJS = `(data, output, target, render, play) => {
+    const engineJS = `(data, canvas, render, play, midi) => {
       ${this.elemsCode_.engine.value}
     }`;
 
     try {
       eval(engineJS)(
         data,
-        {
-          result: eval(parserJS)(data),
-        },
         this.engine_.canvas,
         this.engine_.render.bind(this.engine_),
         this.engine_.play.bind(this.engine_),

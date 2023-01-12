@@ -1,5 +1,5 @@
 /**
- * @fileoverview Tone.js code to generate melodies from 'do, re, me...' output.
+ * @fileoverview WebMidi.js code to generate melodies from 'do, re, me...' output.
  */
 
 // Test data
@@ -12,7 +12,7 @@ data = {
 // Parse data.
 const melody = data.root.example.split(', ');
 
-// Tone.js code.
+// WebMidi.js code.
 // https://en.wikipedia.org/wiki/Solf%C3%A8ge
 const notes = {
   'do': 'C4',
@@ -29,17 +29,18 @@ const notes = {
   'ti': 'B5',
 };
 
-const roll = (t) => {
-  const synth = new t.Synth().toDestination();
+const seq = (_in, out) => {
+  const interval = 750;
+  const device = out[0]; // whatever the first Midi device is.
 
   let index = 0;
-	t.Transport.scheduleRepeat((time) => {
+  window.setInterval(() => {
     const note = notes[melody[index % melody.length]];
-    synth.triggerAttackRelease(note, '8n', time + .1);
-    index++;
-  }, '8n');
 
-  t.Transport.start();
+    device.playNote(note, {
+      time: WebMidi.time + interval,
+    });
+  }, interval);
 };
 
-play(roll);
+midi(seq);
