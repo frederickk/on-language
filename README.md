@@ -1,18 +1,19 @@
 # On Language
 
-v0.1.0
+v0.2.0
 
 ### Coercing ChatGPT to create languages and structured data.
 
 ---
 ### Overview
 
-**On Language** is an experiment in coercing [ChatGPT](https://chat.openai.com/) to create languages and structured data responses. The languages created can then be used as a direct creative input. [P5.js](https://p5js.org/get-started/) and [Tone.js](https://tonejs.github.io/) are directly embedded into this site, but any creative platform could use the returned data.
+**On Language** is an experiment in coercing [ChatGPT](https://chat.openai.com/) to create languages and structured data responses. The languages created can then be used as a direct creative input. [P5.js](https://p5js.org/get-started/), [Tone.js](https://tonejs.github.io/), and  [WebMidi.js](https://webmidijs.org/) are directly embedded into this site, but any thing could ingest the returned data for any means.
 
-[![On Language screenshot](./assets/on-language-do-re-me.gif)](./assets/on-language-do-re-me.mp4)
+[![On Language creating songs from Solfège notation](./assets/on-language-do-re-me.gif)](./assets/on-language-do-re-me.mp4)
 
-[Watch the demo](./assets/on-language-do-re-me.mp4) of turning a ChatGPT response into XML and generate a melody using [Tone.js](https://tonejs.github.io/).
+[Watch the demo](./assets/on-language-do-re-me.mp4) of ChatGPT creating melodies in Solfège notation that is made audible by [Tone.js](https://tonejs.github.io/).
 
+[Watch the demo](./assets/on-language-beatbox-midi.mp4) of ChatGPT write slam poetry using specific words and then using the out put to create a Midi beatbox using [WebMidi.js](https://webmidijs.org/).
 
 
 ---
