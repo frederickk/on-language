@@ -1,6 +1,6 @@
 export const NAME = 'On Language';
 
-export const VERSION = '0.2.0';
+export const VERSION = '0.2.1';
 
 export const XML_SCHEMA = `
 <?xml version="1.0" encoding="UTF-8" ?>

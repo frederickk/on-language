@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv-safe';
 import express, {Application, Request, Response} from 'express';
+import fetch from 'node-fetch';
 import nunjucks from 'nunjucks';
 import path from 'path';
 import {ChatGPTAPIBrowser} from 'chatgpt';
@@ -13,6 +14,8 @@ import plugins from './chat-rules';
 import {routeAbout} from './routes/about';
 import {routeAsk} from './routes/ask';
 import {routeDebug} from './routes/debug';
+import {routeTrain} from './routes/train';
+import * as log from '../globals/log';
 
 const PORT = 3000;
 
@@ -52,6 +55,7 @@ const app: Application = express()
   .use('/ask', routeAsk)
   .use('/debug', routeDebug)
   .use('/static', express.static(path.join(__dirname, '..', '..', 'static')))
+  .use('/train', routeTrain)
   .use('/', (_req: Request, res: Response) => {
     res.status(200).render('index.njk', {});
   });
@@ -67,7 +71,7 @@ nunjucks.configure(path.join(__dirname, '..', '..', 'src', 'client'), {
 const init = () => {
   return new Promise<void>((resolve) => {
     app.listen(PORT, () => {
-      console.log(`Server running at http://localhost:${PORT}/`);
+      log.log(`Server running at http://localhost:${PORT}/`);
       resolve();
     });
   });
@@ -85,9 +89,10 @@ const init = () => {
       text: `☎️ Connecting to ChatGPT`,
     });
   }
-  await oraPromise(config.train(), {
-    text: `👩‍🏫 Learning (${config.rules.length} rules, ${config.parsers.length} parsers)`,
+
+  await fetch(`http://localhost:${PORT}/train`, {
+    method: 'POST',
   });
 
-  console.log('🤖👍');
+  log.log('🤖👍');
 })();

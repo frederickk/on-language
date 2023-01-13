@@ -1,5 +1,6 @@
 import express, {Request, Response} from 'express';
 import {oraPromise} from 'ora';
+import * as log from '../../globals/log';
 
 /** Duration to wait for response from ChatGPT server. */
 const TIMEOUT = 2 * 60 * 1000;
@@ -23,9 +24,9 @@ routeAsk.post('/', async (req: Request, res: Response) => {
       text: message,
     });
 
-    console.log(`**********\n${JSON.stringify({...reply}, null, 2)}\n**********`);
+    log.log(`**********\n${JSON.stringify({...reply}, null, 2)}\n**********`);
     // const parsedReply = config.parse(reply);
-    // console.log(`**********\n${JSON.stringify(parsedReply, null, 2)}\n**********`);
+    // log.log(`**********\n${JSON.stringify(parsedReply, null, 2)}\n**********`);
 
     return res.status(200).json({...reply});
   } catch (error) {

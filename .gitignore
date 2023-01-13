@@ -21,6 +21,7 @@ static/
 .vscode/
 *.pxd
 *.sketch
+*.txt
 # *.mp4
 # *.mov
 on-language-beatbox-midi Project

@@ -24,6 +24,11 @@
 
 {% block body %}
   <header>
+    <!-- TRAIN -->
+    <button-debounce class="header-debug tooltip--bottom" id="train" data-tooltip="Retrain">
+      <span class="material-symbols-outlined">school</span>
+    </button-debounce>
+
     <!-- CHATGPT PROMPT -->
     <input-text id="prompt" value="" placeholder="Ask (nearly) anything">
     </input-text>
@@ -35,6 +40,8 @@
     <button-debounce class="header-debug tooltip--bottom" data-tooltip="WTF" onclick="window.history.pushState(null,null,'/about');location.href='/about';">
       <span class="material-symbols-outlined">info</span>
     </button-debounce>
+
+    <!-- DEBUG -->
   </header>
 
   <div class="content">
@@ -44,8 +51,7 @@
     </section>
     <section class="content-column content-column__output content--dark">
       {% call details_code(name='data', summary='Data', clear=true) %}{% endcall %}
-      {% call details_code(name='engine', summary='Engine', clear=true, run=true, stop=true) %}console.log(data);
-console.log(output);{% endcall %}
+      {% call details_code(name='engine', summary='Engine', clear=true, run=true, stop=true) %}{% endcall %}
     </section>
   </div>
 

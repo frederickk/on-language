@@ -27,6 +27,7 @@ export class OnLanguage {
 
   constructor() {
     this.elemsButton_ = {
+      train: document.querySelector('#train')!,
       user: document.querySelector('#ask')!,
     };
     this.elemsInput_ = {
@@ -70,18 +71,6 @@ export class OnLanguage {
       }, false);
     });
 
-    this.elemsInput_.user
-      ?.addEventListener('enter', () => {});
-
-    this.elemsButton_.user
-      ?.addEventListener('click', this.handlerSubmit.bind(this));
-
-    this.elemsInput_.user
-      ?.addEventListener('submit', this.handlerSubmit.bind(this));
-
-    this.elemsInput_.user
-      ?.addEventListener('empty', () => {});
-
     this.elemsCode_.engine
       .addEventListener('code-run', this.handlerEngineRun_.bind(this));
 
@@ -95,6 +84,18 @@ export class OnLanguage {
         localStorage.setItem(id, text);
       });
     });
+
+    this.elemsButton_.train
+      .addEventListener('click', this.handlerTrain_.bind(this));
+
+    this.elemsInput_.user
+      .addEventListener('enter', this.handlerSubmit_.bind(this));
+
+    this.elemsButton_.user
+      .addEventListener('click', this.handlerSubmit_.bind(this));
+
+    this.elemsInput_.user
+      .addEventListener('submit', this.handlerSubmit_.bind(this));
 
     window.addEventListener('DOMContentLoaded', () => {
       ids.forEach((id: string) => {
@@ -168,7 +169,7 @@ export class OnLanguage {
   }
 
   /** Handles ChatGPT Response and posts it to response panel. */
-  private async handlerResponse(res: any) {
+  private async handlerResponse_(res: any) {
     document.body.classList.remove('--pending');
 
     if (res) {
@@ -197,7 +198,7 @@ export class OnLanguage {
   }
 
   /** Handles user input submissions. */
-  private async handlerSubmit() {
+  private async handlerSubmit_() {
     document.body.classList.add('--pending');
 
     // Prepend data structure instructions to prompt.
@@ -207,7 +208,19 @@ export class OnLanguage {
       ${this.elemsInput_.user.value}`;
 
     const res = await this.fetchMessage_(text);
-    this.handlerResponse(res);
+    this.handlerResponse_(res);
+  }
+
+  /** Sends POST request to /train endpoint to retrain ChatGPT. */
+  private async handlerTrain_() {
+    await fetch('/train', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => log.log(res.json()));
   }
 
   /** Parses string into a Tokenized object of Markdown elements. */

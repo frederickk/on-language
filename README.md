@@ -1,6 +1,6 @@
 # On Language
 
-v0.2.0
+v0.2.1
 
 ### Coercing ChatGPT to create languages and structured data.
 

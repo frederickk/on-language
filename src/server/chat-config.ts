@@ -1,5 +1,6 @@
 import {ChatGPTAPI, ChatGPTAPIBrowser} from 'chatgpt';
 import {IConfig} from './chat-rules';
+import * as log from '../globals/log';
 
 /**
  * Configures ChatGPTAPI with given parameters.
@@ -53,17 +54,17 @@ export class ChatConfigure {
       Please follow these rules when replying to me:
       ${this.rules.map((rule) => `\n- ${rule}`)}
     `;
-    console.log('📚 Training Rules');
-    console.log(message);
+    log.log('📚 Training Rules');
+    log.log(message);
 
     const reply = await this.api_.sendMessage(message);
-    console.log('🤓', reply);
+    log.log(['🤓', reply]);
 
     try {
       this.conversationId = reply.conversationId;
       this.messageId = reply.messageId;
     } catch(err) {
-      console.log('Couldn\'t find "conversationId" or "messageId".');
+      log.log('Couldn\'t find "conversationId" or "messageId".');
     }
 
     return reply;
